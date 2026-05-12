@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 import auth from "../middleware/auth.js";
 import UserModel from "../models/user.js";
 import validate from "../middleware/joiValidation.js";
-import { userRegistrationSchema } from "../validation/user.js";
+import { userLoginSchema, userRegistrationSchema } from "../validation/user.js";
 import logIP from "../middleware/logIp.js";
 
 const router = express.Router();
@@ -66,6 +66,36 @@ router.post(
 );
 
 // login
+router.post("/login", validate(userLoginSchema), async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    const user = await UserModel.findOne({ email: email });
+    if (!user)
+      return res
+        .status(400)
+        .json({ success: false, message: "Invalid email or password" });
+
+    const isValid = await user.comparePassword(password);
+
+    if (!isValid)
+      return res
+        .status(400)
+        .json({ success: false, message: "Invalid email or password" });
+
+    const token = await user.generateAuthToken();
+    return res
+      .status(201)
+      .header("x-auth-token", token)
+      .json({ success: true, message: "User logged in successfully" });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({
+      success: false,
+      message: "Server Error",
+    });
+  }
+});
 
 // edit
 
