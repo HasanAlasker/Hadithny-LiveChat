@@ -3,6 +3,7 @@ import FormikInput from "../../components/form/FormikInput";
 import AppForm from "../../components/form/AppForm";
 import * as Yup from "yup";
 import { Form, validateYupSchema } from "formik";
+import Screen from "../../components/Screen";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string()
@@ -24,26 +25,39 @@ export default function Login() {
   };
 
   return (
-    <AppForm
-      initialValues={initialValues}
-      validationSchema={validationSchema}
-      onSubmit={handelSubmit}
-    >
-      <Form>
-        <FormikInput
-          name={"email"}
-          placeholder={"Enter your email"}
-          icon={"mail"}
-          label={"Email"}
-        />
-        <FormikInput
-          name={"password"}
-          placeholder={"Enter your password"}
-          icon={"lock"}
-          type={"password"}
-          label={"Password"}
-        />
-      </Form>
-    </AppForm>
+    <Screen>
+      <AppForm
+        initialValues={initialValues}
+        validationSchema={validationSchema}
+        onSubmit={handelSubmit}
+      >
+        <Form>
+          <h2 className="main center">We missed you!</h2>
+          <FormikInput
+            name={"email"}
+            placeholder={"Enter your email"}
+            icon={"mail"}
+            label={"Email"}
+          />
+          <FormikInput
+            name={"password"}
+            placeholder={"Enter your password"}
+            icon={"lock"}
+            type={"password"}
+            label={"Password"}
+          />
+          <button type="submit" className="priBtn">
+            Login
+          </button>
+          <hr />
+          <span className="center">
+            Don't have an account?{" "}
+            <a className="priLink" href="/register">
+              Create one
+            </a>
+          </span>
+        </Form>
+      </AppForm>
+    </Screen>
   );
 }

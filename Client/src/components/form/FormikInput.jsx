@@ -1,8 +1,10 @@
-import { ErrorMessage, Field } from "formik";
+import { ErrorMessage, Field, useField } from "formik";
 import React from "react";
 import { DynamicIcon } from "lucide-react/dynamic";
 
 export default function FormikInput({ label, name, placeholder, icon, type }) {
+  const [field, meta] = useField(name);
+  const hasErr = meta.error && meta.touched;
   return (
     <div className="inputGroup">
       {label && (
@@ -10,13 +12,13 @@ export default function FormikInput({ label, name, placeholder, icon, type }) {
           {label}
         </label>
       )}
-      <div className="inputField">
-        {icon && <DynamicIcon name={icon} size={25} className="inputIcon" />}
+      <div className={`inputField  ${hasErr && "inputErr"}`}>
+        {icon && <DynamicIcon name={icon} size={22} className="inputIcon" />}
         <Field
           placeholder={placeholder}
           name={name}
           type={type ?? "text"}
-          className={"input"}
+          className={`input`}
         />
       </div>
       <ErrorMessage name={name} className="error" component={"p"} />
