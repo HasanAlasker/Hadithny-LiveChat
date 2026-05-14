@@ -4,6 +4,7 @@ import SimpleChat from "./screens/SimpleChat";
 import Login from "./screens/Auth/Login";
 import Register from "./screens/Auth/Register";
 import AuthRoute from "./components/auth/AuthRoute";
+import Chat from "./screens/Chat";
 
 function App() {
   return (
@@ -12,7 +13,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route element={<AuthRoute />}>
-          <Route path="/" element={<SimpleChat />} />
+          <Route path="/" element={<Chat />} />
         </Route>
       </Routes>
     </BrowserRouter>
