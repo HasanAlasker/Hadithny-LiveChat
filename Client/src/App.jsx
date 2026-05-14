@@ -3,14 +3,17 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import SimpleChat from "./screens/SimpleChat";
 import Login from "./screens/Auth/Login";
 import Register from "./screens/Auth/Register";
+import AuthRoute from "./components/auth/AuthRoute";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<SimpleChat />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route element={<AuthRoute />}>
+          <Route path="/" element={<SimpleChat />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );

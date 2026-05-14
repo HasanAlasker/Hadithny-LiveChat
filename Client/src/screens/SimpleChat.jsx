@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { io } from "socket.io-client";
 import { useEffect } from "react";
+import { useAuthStore } from "../store/useAuthStore";
 
 const socket = io("http://localhost:4000");
 
 export default function SimpleChat() {
+  const { user } = useAuthStore();
   const [id, setId] = useState(null);
   const [send, setSend] = useState(null);
   const [rec, setRec] = useState([]);
@@ -38,7 +40,7 @@ export default function SimpleChat() {
 
   return (
     <>
-      <h1>Websocket Live Chat</h1>
+      <h1>Hello {user.name}</h1>
       <input type="text" onChange={(e) => setSend(e.target.value)} />
       <button onClick={sendMsg}>Send</button>
       {RenderMsgs}

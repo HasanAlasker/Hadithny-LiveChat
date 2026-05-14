@@ -6,7 +6,7 @@ const STORAGE_KEYS = {
   TOKEN: "@token",
 };
 
-const useAuthStore = create((set, get) => ({
+export const useAuthStore = create((set, get) => ({
   user: JSON.parse(localStorage.getItem(STORAGE_KEYS.USER)) ?? null,
   token: localStorage.getItem(STORAGE_KEYS.TOKEN),
   loading: null,
@@ -34,6 +34,7 @@ const useAuthStore = create((set, get) => ({
 
   logout: async () => {
     localStorage.clear();
+    set({ user: null, token: null });
   },
 
   login: async (data) => {
@@ -48,6 +49,8 @@ const useAuthStore = create((set, get) => ({
         get().saveUser(user, token);
         set({ loading: false });
       }
+
+      return res;
     } catch (error) {
       set({ error: true, loading: false });
       console.log(error);
@@ -56,7 +59,7 @@ const useAuthStore = create((set, get) => ({
 
   register: async (data) => {
     try {
-      set({ loading: true, error: false, message: null });
+      set({ loading: true, error: false, message: null,});
 
       const res = await register(data);
       if (res.ok) {
@@ -66,6 +69,8 @@ const useAuthStore = create((set, get) => ({
         get().saveUser(user, token);
         set({ loading: false });
       }
+
+      return res;
     } catch (error) {
       set({ error: true, loading: false });
       console.log(error);

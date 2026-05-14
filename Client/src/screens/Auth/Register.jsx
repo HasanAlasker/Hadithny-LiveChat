@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import FormikInput from "../../components/form/FormikInput";
 import AppForm from "../../components/form/AppForm";
 import * as Yup from "yup";
 import { Form, validateYupSchema } from "formik";
 import Screen from "../../components/Screen";
+import { useAuthStore } from "../../store/useAuthStore";
+import { useNavigate } from "react-router-dom";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string()
@@ -61,6 +63,11 @@ const validationSchema = Yup.object().shape({
 });
 
 export default function Register() {
+  const { register, loading, error } = useAuthStore();
+  const [err, setErr] = useState(null);
+
+  const navigate = useNavigate();
+
   const initialValues = {
     email: "",
     password: "",
@@ -68,7 +75,17 @@ export default function Register() {
     name: "",
   };
   const handelSubmit = async (values) => {
-    console.log(values);
+    try {
+      const res = await register(values);
+
+      if (!res.ok) {
+        setErr(res.error);
+      }
+
+      if (res.ok) navigate("/");
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -109,6 +126,8 @@ export default function Register() {
           <button type="submit" className="priBtn">
             Create Account
           </button>
+          {err && <p className="error">{err}</p>}
+
           <hr />
           <span className="center">
             Already have an account?{" "}
