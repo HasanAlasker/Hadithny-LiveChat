@@ -24,7 +24,12 @@ export const useSocketStore = create((set, get) => ({
     });
   },
 
-  recieveMessage: (onMessage) => {
+  receiveMessage: (onMessage) => {
+    socket.off("receive message"); // ✅ remove any existing listener first
     socket.on("receive message", (data) => onMessage(data));
+
+    return () => {
+      socket.off("receive message");
+    };
   },
 }));
