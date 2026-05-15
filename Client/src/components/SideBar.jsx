@@ -10,7 +10,12 @@ export default function SideBar({ users, setChat }) {
     (u) =>
       u._id !== user._id && (
         <div key={u._id}>
-          <hr />
+          <hr
+            style={{
+              border: 0,
+              borderTop: "2px solid white",
+            }}
+          />
           <UserCard id={u._id} user={u} setChat={setChat} />
         </div>
       ),

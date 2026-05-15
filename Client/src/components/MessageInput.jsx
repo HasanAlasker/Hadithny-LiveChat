@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { DynamicIcon } from "lucide-react/dynamic";
+import { useSocketStore } from "../store/useSocketStore";
 
 export default function MessageInput({
   name,
@@ -7,12 +8,14 @@ export default function MessageInput({
   icon,
   type,
   onClick,
+  receiverId,
 }) {
+  const sendMessage = useSocketStore((state) => state.sendMessage);
+
   const [msg, setMsg] = useState(null);
 
   const sendMsg = () => {
-    console.log(msg);
-    onClick && onClick(msg);
+    if (msg?.length > 0) sendMessage(receiverId, msg);
   };
 
   return (

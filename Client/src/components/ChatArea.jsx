@@ -7,11 +7,11 @@ import useApi from "../hooks/useApi";
 import { getMsgs } from "../api/message";
 import { useEffect } from "react";
 import { useState } from "react";
+import MessageArea from "./MessageArea";
 
 export default function ChatArea({ activeChat }) {
   const [msgs, setMsgs] = useState([]);
 
-  // console.log(activeChat?._id);
   const { data: fetchedMsgs, request: fetchMsgs, loading } = useApi(getMsgs);
 
   useEffect(() => {
@@ -44,8 +44,8 @@ export default function ChatArea({ activeChat }) {
   return (
     <div className="chatArea">
       <UserCard user={activeChat} activeChat />
-      <div className="messageArea">Message area</div>
-      <MessageInput />
+      <MessageArea msg={msgs} />
+      <MessageInput receiverId={activeChat?._id} />
     </div>
   );
 }

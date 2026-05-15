@@ -9,21 +9,22 @@ export default function initSocket(io) {
       console.log(`User ${userId} connected with socketId ${socket.id}`);
     });
 
-    socket.on("send message", async ({ senderId, recipientId, msg }) => {
-      const recipientSocketId = onlineUsers.get(recipientId);
+    socket.on("send message", async ({ sender, receiver, msg }) => {
+      const recipientSocketId = onlineUsers.get(receiver);
 
       if (recipientSocketId) {
-        socket.to(recipientSocketId).emit("receive message", { senderId, msg });
+        socket.to(recipientSocketId).emit("receive message", { sender, msg });
       }
 
       try {
         const newMessage = new MessageModel({
-          sender: senderId,
-          receiver: recipientId,
+          sender,
+          receiver,
           content: msg,
         });
         await newMessage.save();
 
+        console.log("sent: ", msg);
       } catch (error) {
         console.log("Failed to save message:", error);
       }

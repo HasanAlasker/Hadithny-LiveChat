@@ -125,7 +125,7 @@ a {
   display: flex;
   align-items: center;
   gap: 0.6rem;
-  padding: 0.5rem 0;
+  padding: 1rem 0;
   cursor: pointer;
   /* border-top: solid 1px var(--outline); */
 }

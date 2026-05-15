@@ -16,7 +16,7 @@ export const useSocketStore = create((set, get) => ({
     });
   },
 
-  sendMessage: (msg, receiverId) => {
+  sendMessage: (receiverId, msg) => {
     socket.emit("send message", {
       sender: get().userId,
       receiver: receiverId,

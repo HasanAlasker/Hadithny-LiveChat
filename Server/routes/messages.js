@@ -11,8 +11,10 @@ router.get("/:id", auth, async (req, res) => {
     const userId = req.params.id;
 
     const messages = await MessageModel.find({
-      sender: myId,
-      reciever: userId,
+      $or: [
+        { sender: myId, receiver : userId },
+        { sender: userId, receiver : myId },
+      ],
     });
     return res.status(200).json({ success: true, data: messages });
   } catch (error) {
