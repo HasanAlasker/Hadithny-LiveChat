@@ -6,6 +6,7 @@ import users from "./routes/users.js";
 import { createServer } from "http";
 import { Server } from "socket.io";
 import initSocket from "./socket.js";
+import messages from "./routes/messages.js";
 
 dotenv.config();
 const app = express();
@@ -47,6 +48,7 @@ mongoose
 
 app.use(express.json());
 app.use("/api/users", users);
+app.use("/api/messages", messages);
 initSocket(io);
 
 httpServer.listen(port, () => {

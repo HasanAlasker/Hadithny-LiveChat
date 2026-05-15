@@ -7,14 +7,14 @@ const messageSchema = new mongoose.Schema(
       ref: "User",
       required: true,
     },
-    chat: {
+    reciever: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Chat",
+      ref: "User",
     },
     content: {
       type: String,
       minLength: [1, "Message must be at least 2 characters long"],
-      maxLength : [500, "Message must be at most 500 characters long"],
+      maxLength: [500, "Message must be at most 500 characters long"],
       required: true,
     },
     isSeen: {
