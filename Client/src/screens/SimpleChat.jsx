@@ -2,13 +2,14 @@ import { useState } from "react";
 import { io } from "socket.io-client";
 import { useEffect } from "react";
 import { useAuthStore } from "../store/useAuthStore";
+import MessageInput from "../components/MessageInput";
 
 const socket = io("http://localhost:4000");
 
 export default function SimpleChat() {
   const { user } = useAuthStore();
   const [id, setId] = useState(null);
-  const [send, setSend] = useState(null);
+  // const [send, setSend] = useState(null);
   const [rec, setRec] = useState([]);
 
   useEffect(() => {
@@ -25,10 +26,10 @@ export default function SimpleChat() {
     };
   }, []);
 
-  const sendMsg = async () => {
-    if (!send || send?.length < 1) return;
+  const sendMsg = async (msg) => {
+    if (!msg || msg?.length < 1) return;
 
-    socket.emit("send message", { id: id + new Date(), msg: send });
+    socket.emit("send message", { id: id + new Date(), msg: msg });
 
     return () => {
       socket.off("send message");
@@ -41,8 +42,8 @@ export default function SimpleChat() {
   return (
     <>
       <h1>Hello {user.name}</h1>
-      <input type="text" onChange={(e) => setSend(e.target.value)} />
-      <button onClick={sendMsg}>Send</button>
+
+      <MessageInput onClick={sendMsg} />
       {RenderMsgs}
     </>
   );

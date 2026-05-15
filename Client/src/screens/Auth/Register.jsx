@@ -6,6 +6,7 @@ import { Form, validateYupSchema } from "formik";
 import Screen from "../../components/Screen";
 import { useAuthStore } from "../../store/useAuthStore";
 import { useNavigate } from "react-router-dom";
+import { DynamicIcon } from "lucide-react/dynamic";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string()
@@ -125,6 +126,7 @@ export default function Register() {
           />
           <button type="submit" className="priBtn">
             Create Account
+            <DynamicIcon name={"user-circle"} />
           </button>
           {err && <p className="error">{err}</p>}
 
@@ -133,6 +135,7 @@ export default function Register() {
             Already have an account?{" "}
             <a className="priLink" href="/login">
               Login
+              <DynamicIcon name={"log-in"} />
             </a>
           </span>
         </Form>

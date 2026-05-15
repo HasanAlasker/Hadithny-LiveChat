@@ -6,11 +6,13 @@ export default function MessageInput({
   placeholder = "Type a message",
   icon,
   type,
+  onClick,
 }) {
   const [msg, setMsg] = useState(null);
 
   const sendMsg = () => {
     console.log(msg);
+    onClick && onClick(msg);
   };
 
   return (

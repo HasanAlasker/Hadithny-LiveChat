@@ -1,6 +1,7 @@
 import React from "react";
 import UserCard from "./UserCard";
 import { useAuthStore } from "../store/useAuthStore";
+import { DynamicIcon } from "lucide-react/dynamic";
 
 export default function SideBar({ users, setChat }) {
   const { user, logout } = useAuthStore();
@@ -16,7 +17,10 @@ export default function SideBar({ users, setChat }) {
   );
   return (
     <div className="sidebar">
-      <h1 className="pri" style={{ marginBottom: "1.5rem" }}>
+      <h1
+        className="pri"
+        style={{ marginBottom: "1.5rem", fontFamily: "Playwrite GB S" }}
+      >
         Hadithny
       </h1>
       <div className="userScroll">{RenderUsers}</div>
@@ -25,7 +29,7 @@ export default function SideBar({ users, setChat }) {
         style={{ marginTop: "1rem", width: "100%" }}
         onClick={logout}
       >
-        Log out
+        Log out <DynamicIcon name={"log-out"} />
       </button>
     </div>
   );

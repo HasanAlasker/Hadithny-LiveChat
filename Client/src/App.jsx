@@ -14,6 +14,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route element={<AuthRoute />}>
           <Route path="/" element={<Chat />} />
+          <Route path="/s" element={<SimpleChat />} />
         </Route>
       </Routes>
     </BrowserRouter>

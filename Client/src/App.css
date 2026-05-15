@@ -1,5 +1,6 @@
 * {
-  font-family: inter;
+  font-family: inter
+;
   margin: 0;
   padding: 0;
 }
@@ -47,6 +48,7 @@ button {
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  gap: 0.4rem;
 }
 .priBtn {
   background-color: var(--pri);
@@ -58,6 +60,9 @@ button {
 }
 a {
   text-decoration: none;
+  display: inline-flex;
+  gap: .3rem;
+  align-items: center;
 }
 .priLink {
   font-weight: bold;
@@ -74,9 +79,9 @@ a {
 
 .sidebar {
   max-width: 18rem;
-  border-right: solid 2px var(--outline);
+  border-right: solid 2px var(--white);
   background-color: var(--menu);
-  padding: 1rem 2rem 1rem 1.5rem;
+  padding: 1rem 2rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
