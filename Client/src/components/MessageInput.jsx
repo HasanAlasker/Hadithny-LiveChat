@@ -29,9 +29,10 @@ export default function MessageInput({
           type={type ?? "text"}
           className={`input`}
           onChange={(e) => setMsg(e.target.value)}
+          onKeyDown={(e) => e.key === "Enter" && sendMsg()}
         />
         <button className="priBtn" style={{ gap: ".4rem" }} onClick={sendMsg}>
-          Send <DynamicIcon name={"send"} />
+          <DynamicIcon name={"send"} size={20} />
         </button>
       </div>
     </div>

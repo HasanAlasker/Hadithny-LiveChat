@@ -7,8 +7,9 @@ import MessageArea from "./MessageArea";
 import NoChatSelected from "./emptyStates/NoChatSelected";
 import { useSocketStore } from "../store/useSocketStore";
 import { useAuthStore } from "../store/useAuthStore";
+import SideBar from "./SideBar";
 
-export default function ChatArea({ activeChat }) {
+export default function ChatArea({ activeChat, setChat, windowWidth }) {
   const [msgs, setMsgs] = useState([]);
   const bottomRef = useRef(null);
 
@@ -51,11 +52,16 @@ export default function ChatArea({ activeChat }) {
     return cleanup;
   }, [activeChat?._id]);
 
-  if (!activeChat) return <NoChatSelected />;
+  if (!activeChat) return windowWidth > 624 && <NoChatSelected />;
 
   return (
     <div className="chatArea">
-      <UserCard user={activeChat} activeChat />
+      <UserCard
+        user={activeChat}
+        activeChat
+        showBack={activeChat}
+        closeChat={() => setChat(null)}
+      />
       <MessageArea msgs={msgs} bottomRef={bottomRef} />
       <MessageInput receiverId={activeChat?._id} onSend={sendMsg} />
     </div>

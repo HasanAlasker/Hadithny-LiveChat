@@ -9,6 +9,7 @@ import { useSocketStore } from "../store/useSocketStore";
 export default function Chat() {
   const [users, setUsers] = useState();
   const [activeChat, setChat] = useState(null);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   const { data: fetchedUsers, request: fetchUsers, loading } = useApi(getUsers);
   const { connect } = useSocketStore();
@@ -23,10 +24,24 @@ export default function Chat() {
     setUsers(fetchedUsers);
   }, [fetchedUsers]);
 
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   return (
     <div className="chatScreen">
-      <SideBar users={users} setChat={setChat} />
-      <ChatArea activeChat={activeChat} />
+      {(windowWidth > 624 || !activeChat) && (
+        <SideBar users={users} setChat={setChat} />
+      )}
+      <ChatArea
+        activeChat={activeChat}
+        setChat={setChat}
+        windowWidth={windowWidth}
+      />
     </div>
   );
 }
